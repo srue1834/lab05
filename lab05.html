@@ -1,0 +1,119 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <script type="application/javascript">
+    	document.body.style.margin='0';
+        document.body.style.padding='0';
+        document.body.style.background= '#000000'
+
+        const titulo = document.createElement('div')
+     
+        titulo.style.fontSize = '60px'
+        titulo.style.backgroundImage = "url('pewdiepie-red-and-black-wavy-background-uhd-4k-wallpaper.jpg')"
+        titulo.append('MARZIAA CHECK WHATSAPP')
+        titulo.style.color ='#FFFFFF'
+        document.body.append(titulo)
+
+      //se crea un input para ingresar el texto del mensaje
+      const input = document.createElement('input')
+      document.body.append(input) 
+      input.maxLength = 140
+
+      // se crea un boton
+      const button = document.createElement('button')
+	      button.append('send')
+	      document.body.append(button)
+	      
+
+          button.style.height='50px';
+          button.style.width='100px';
+          button.style.borderRadius='5px';
+          button.style.backgroundImage="url('pewdiepie-red-and-black-wavy-background-uhd-4k-wallpaper.jpg')";
+          button.style.fontSize='x-large'
+          button.style.color= '#FFFFFF'
+          button.style.margin="50px 10px 20px 30px"
+
+      //se programa la funcion para enviar el mensaje
+
+
+      button.addEventListener('click', () => {
+      	//se hace una solicitud al servidor con fetch 
+      	fetch('http://ubeje.xyz:3000/messages', { 
+      		method: 'POST',
+      		//se pasa contenido de tipo json
+      		headers: {
+      			'Content-Type': 'application/json'
+      		},
+      		//en el body ya se envia lo que se quiere que llegue al servidor
+      		//todo en fetch se tiene que enviar en forma de string 
+      		body: JSON.stringify({
+      			sender: "sofia",
+      			message: input.value,
+      			date: '2021-02-12:18:56',
+      			//se puede hacer una funcion mas agradable que acepte parametros 
+      		})
+      	})
+      })
+
+      button.addEventListener('click', submit => {
+      	//se hace una solicitud al servidor con fetch 
+      	fetch('http://ubeje.xyz:3000/messages', { 
+      		method: 'POST',
+      		//se pasa contenido de tipo json
+      		headers: {
+      			'Content-Type': 'application/json'
+      		},
+      		//en el body ya se envia lo que se quiere que llegue al servidor
+      		//todo en fetch se tiene que enviar en forma de string 
+      		body: JSON.stringify({
+      			sender: "sofia",
+      			message: input.value,
+      			date: '2021-02-12:18:56',
+      			//se puede hacer una funcion mas agradable que acepte parametros 
+      		})
+      	})
+      })
+
+
+
+     const listaDeMensajes = document.createElement('ul')
+      document.body.append(listaDeMensajes)
+
+      fetch('http://ubeje.xyz:3000/messages').then((r) => {
+        return r.json()
+      }).then((j) => {
+        j.forEach((mensaje) => {
+          const unMensaje = document.createElement('li')
+          const h1 = document.createElement('h1')
+          const h2 = document.createElement('h2')
+          const h3 = document.createElement('h3')
+
+	  h1.append(mensaje.sender)
+      h2.append(mensaje.message)
+      h3.append(mensaje.message.match(/\.(jpeg|jpg|gif|bmp|tiff|png|svg)$/gi))
+
+
+	  unMensaje.append(h1)
+      unMensaje.append(h2)
+
+      h1.style.color = '#FFFFFF'
+      h1.style.marginLeft='50px';
+      h2.style.color = '#FFFFFF'
+      h2.style.marginLeft='50px'
+
+      unMensaje.style.backgroundImage = "url('color.png')"
+      unMensaje.style.borderRadius = "30px"
+      
+      unMensaje.style.margin = "0px 50px 10px 0px"
+          listaDeMensajes.append(unMensaje)
+        })
+      })
+
+    function checkURL(url) {
+    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+		}
+
+    </script>
+  </body>
+</html>
